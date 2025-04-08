@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "infectionplus:item/human_hunter_easter_egg"
+  }
+}

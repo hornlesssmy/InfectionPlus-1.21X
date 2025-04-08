@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "infectionplus:item/marios_baby_oil_easter_egg"
+  }
+}

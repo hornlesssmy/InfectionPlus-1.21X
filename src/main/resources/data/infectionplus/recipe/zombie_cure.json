@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "b": {
+      "item": "minecraft:emerald"
+    },
+    "c": {
+      "item": "minecraft:diamond_block"
+    },
+    "d": {
+      "item": "minecraft:golden_apple"
+    },
+    "e": {
+      "item": "minecraft:honey_bottle"
+    },
+    "f": {
+      "item": "minecraft:respawn_anchor"
+    },
+    "g": {
+      "item": "minecraft:egg"
+    },
+    "h": {
+      "item": "minecraft:chain"
+    },
+    "i": {
+      "item": "rotten_flesh"
+    }
+  },
+  "pattern": [
+    "abc",
+    "die",
+    "fgh"
+  ],
+  "result": {
+    "count": 1,
+    "id": "infectionplus:zombie_cure"
+  }
+}

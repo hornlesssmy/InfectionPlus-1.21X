@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:diamond_helmet"
+    },
+    "b": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "b",
+    "a"
+  ],
+  "result": {
+    "count": 1,
+    "id": "infectionplus:crown_of_unnatural_life_easter_egg"
+  }
+}

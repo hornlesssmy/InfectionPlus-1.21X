@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:bone"
+    },
+    "b": {
+      "item": "minecraft:rotten_flesh"
+    }
+  },
+  "pattern": [
+    "b",
+    "a"
+  ],
+  "result": {
+    "count": 2,
+    "id": "infectionplus:masons_wolfpack_easter_egg"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "infectionplus:item/shadow_crosser_easter_egg"
+  }
+}

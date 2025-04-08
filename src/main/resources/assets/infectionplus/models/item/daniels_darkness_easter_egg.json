@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "infectionplus:item/daniels_darkness_easter_egg"
+  }
+}

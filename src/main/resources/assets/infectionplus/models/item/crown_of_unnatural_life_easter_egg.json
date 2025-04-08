@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "infectionplus:item/crown_of_unnatural_life_easter_egg"
+  }
+}
