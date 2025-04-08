@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "infectionplus",
+	"version": "${version}",
+	"name": "InfectionPlus",
+	"description": "This is hornlesssmy's first mod! Wubba Lubba dub-dub! Made for my private server with friends.",
+	"authors": [
+		"hornlesssmy"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/infectionplus/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.hornlesssmy.infectionplus.InfectionPlus"
+		],
+		"fabric-datagen": [
+			"net.hornlesssmy.infectionplus.InfectionPlusDataGenerator"
+		],
+		"client": [
+			"net.hornlesssmy.infectionplus.InfectionPlusClient"
+		]
+	},
+	"mixins": [
+		"infectionplus.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.12",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
