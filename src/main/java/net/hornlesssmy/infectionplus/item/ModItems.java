@@ -20,7 +20,6 @@ public class ModItems {
     public static final Item MASONS_WOLFPACK_EASTER_EGG = registerItem("masons_wolfpack_easter_egg", new Item(new Item.Settings()));
     public static final Item JESSES_REVENGE_EASTER_EGG = registerItem("jesses_revenge_easter_egg", new Item(new Item.Settings()));
     public static final Item ETHANS_EVERYDAY_EASTER_EGG = registerItem("ethans_everyday_easter_egg", new Item(new Item.Settings()));
-
     public static final Item GHOSTLY_FISH = registerItem("ghostly_fish", new GhostlyFishItem(new Item.Settings().food(ModFoodComponents.GHOSTLY_FISH)));
     public static final Item ZOMBIE_CURE = registerItem("zombie_cure", new Item(new Item.Settings().food(ModFoodComponents.ZOMBIE_CURE)));
 
