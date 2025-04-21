@@ -2,10 +2,21 @@
 	"required": true,
 	"package": "net.hornlesssmy.infectionplus.mixin",
 	"compatibilityLevel": "JAVA_21",
+	"minVersion": "0.8.5",
+	"client": [
+		"DebugMenuDisablerMixin",
+		"ChatHudMixin",
+		"ChatScreenMixin"
+	],
+	"server": [
+		"server.ServerPlayNetworkHandlerMixin",
+		"server.PlayerManagerMixin"
+	],
 	"mixins": [
-		"ExampleMixin"
+		"ClientPlayNetworkHandlerMixin"
 	],
 	"injectors": {
-		"defaultRequire": 1
+		"defaultRequire": 1,
+		"maxShiftBy": 5
 	}
 }
