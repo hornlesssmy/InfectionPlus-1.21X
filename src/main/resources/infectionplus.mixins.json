@@ -4,8 +4,7 @@
     "ChatScreenMixin",
     "ClientPlayNetworkHandlerMixin",
     "DebugMenuDisablerMixin",
-    "KeyboardMixin",
-    "SleepingPlayerEntityMixin"
+    "KeyboardMixin"
   ],
   "compatibilityLevel": "JAVA_21",
   "injectors": {

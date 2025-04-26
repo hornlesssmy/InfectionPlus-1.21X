@@ -15,14 +15,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class KeyboardMixin {
     @Inject(method = "onKey", at = @At("HEAD"), cancellable = true)
     private void blockChatKeys(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.player == null) return;
+
         // Block both T and / keys
         if ((key == GLFW.GLFW_KEY_T || key == GLFW.GLFW_KEY_SLASH) && action == GLFW.GLFW_PRESS) {
-            if (MinecraftClient.getInstance().player != null) {
-                MinecraftClient.getInstance().player.sendMessage(
-                        Text.literal("Chat is disabled").formatted(Formatting.RED),
-                        false
-                );
-            }
+            client.player.sendMessage(
+                    Text.literal("Chat and commands are disabled").formatted(Formatting.RED),
+                    false
+            );
             ci.cancel();
         }
     }
