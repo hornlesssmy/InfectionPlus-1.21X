@@ -1,18 +1,21 @@
 {
-	"required": true,
-	"package": "net.hornlesssmy.infectionplus.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"minVersion": "0.8.5",
-	"client": [
-		"ChatHudMixin",
-		"DebugMenuDisablerMixin",
-		"KeyboardMixin"
-	],
-	"mixins": [
-		"ClientPlayNetworkHandlerMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1,
-		"maxShiftBy": 5
-	}
+  "client": [
+    "ChatHudMixin",
+    "ChatScreenMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "DebugMenuDisablerMixin",
+    "KeyboardMixin",
+    "SleepingPlayerEntityMixin"
+  ],
+  "compatibilityLevel": "JAVA_21",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "ExampleMixin",
+    "server.PlayerManagerMixin",
+    "server.ServerPlayNetworkHandlerMixin"
+  ],
+  "package": "net.hornlesssmy.infectionplus.mixin",
+  "required": true
 }
