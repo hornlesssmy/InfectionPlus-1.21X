@@ -39,17 +39,6 @@ public class PlayerJoinHandler {
 
                 // Add to human team
                 scoreboard.addScoreHolderToTeam(player.getNameForScoreboard(), humanTeam);
-
-                // Debug log to verify
-                InfectionPlus.LOGGER.info(
-                        "Assigned {} to team {} (Color: {})",
-                        player.getNameForScoreboard(),
-                        humanTeam.getName(),
-                        humanTeam.getColor()
-                );
-
-                // Add to human team
-                scoreboard.addScoreHolderToTeam(player.getNameForScoreboard(), humanTeam);
                 InfectionPlus.LOGGER.info("[Team System] Successfully added {} to Human team", player.getNameForScoreboard());
 
                 player.sendMessage(

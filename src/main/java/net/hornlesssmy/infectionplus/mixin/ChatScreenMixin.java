@@ -1,5 +1,6 @@
 package net.hornlesssmy.infectionplus.mixin;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -11,22 +12,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChatScreen.class)
 public abstract class ChatScreenMixin extends Screen {
-    // Required constructor
-    private ChatScreenMixin(Text title) {
+    protected ChatScreenMixin(Text title) {
         super(title);
     }
 
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
-    private void preventChatCrash(CallbackInfo ci) {
-        if (this.client != null) {
-            ci.cancel(); // Safely close if somehow opened
-        }
-    }
+    private void handleChatScreen(CallbackInfo ci) {
+        MinecraftClient client = MinecraftClient.getInstance();
 
-    @Inject(method = "init", at = @At("HEAD"), cancellable = true)
-    private void preventChatInit(CallbackInfo ci) {
-        if (this.client != null && this.client.player != null) {
-            this.client.player.sendMessage(Text.literal("Chat is currently disabled").formatted(Formatting.RED), false);
+        // Block all chat screen initialization
+        if (client.player != null) {
+            // Special case: Don't show message during sleep
+            if (!client.player.isSleeping()) {
+                client.player.sendMessage(
+                        Text.literal("Chat is disabled").formatted(Formatting.RED),
+                        false
+                );
+            }
             ci.cancel();
         }
     }
