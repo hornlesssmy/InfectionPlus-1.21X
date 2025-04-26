@@ -47,6 +47,20 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
 
+
+tasks.register('setupServer', Copy) {
+	from configurations.runtimeClasspath
+	into "${project.buildDir}/server"
+	include "fabric-server-launch.jar"
+	rename { "server.jar" }
+}
+
+tasks.register('prepareServer', Copy) {
+	dependsOn[setupServer, build]
+	from jar.archiveFile
+	into "${project.buildDir}/server/mods"
+}
+
 java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.

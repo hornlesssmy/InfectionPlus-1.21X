@@ -1,7 +1,6 @@
 {
   "client": [
     "ChatHudMixin",
-    "ChatScreenMixin",
     "ClientPlayNetworkHandlerMixin",
     "DebugMenuDisablerMixin",
     "KeyboardMixin"
@@ -11,7 +10,6 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "ExampleMixin",
     "server.PlayerManagerMixin",
     "server.ServerPlayNetworkHandlerMixin"
   ],
