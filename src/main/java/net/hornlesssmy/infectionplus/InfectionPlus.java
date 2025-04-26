@@ -28,11 +28,21 @@ public class InfectionPlus implements ModInitializer {
 			if (team == null) {
 				team = scoreboard.addTeam(HUMAN_TEAM_NAME);
 				team.setDisplayName(Text.literal("Human").formatted(Formatting.AQUA));
-				InfectionPlus.LOGGER.info("✅ Created Human team");
+
+				// Set these critical properties:
+				team.setColor(Formatting.AQUA);              // Tab list/chat color
+				team.setPrefix(Text.literal("[H] ").formatted(Formatting.AQUA)); // Name prefix
+				team.setCollisionRule(Team.CollisionRule.PUSH_OTHER_TEAMS); // Optional
+
+				InfectionPlus.LOGGER.info("✅ Created Human team (Color: AQUA)");
 			} else {
-				InfectionPlus.LOGGER.info("ℹ️ Human team already exists");
+				// Update existing team settings
+				team.setColor(Formatting.AQUA);
+				team.setPrefix(Text.literal("[H] ").formatted(Formatting.AQUA));
+				InfectionPlus.LOGGER.info("ℹ️ Updated Human team color to AQUA");
 			}
 		});
+
 
 		// ACTUALLY REGISTER THE JOIN HANDLER (MISSING IN YOUR CODE)
 		PlayerJoinHandler.register(); // ← THIS LINE WAS MISSING
