@@ -1,6 +1,5 @@
 package net.hornlesssmy.infectionplus.mixin.server;
 
-import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.text.Text;

@@ -10,6 +10,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 public class PlayerTickHandler {
     public static void onPlayerTick(ServerPlayerEntity player) {
         Team team = player.getScoreboardTeam();
+        ZombieFireHandler.onPlayerTick(player);
 
         if (team != null && team.getName().equals(InfectionPlus.ZOMBIE_TEAM_NAME)) {
             // Check if player already has effects to avoid spamming
