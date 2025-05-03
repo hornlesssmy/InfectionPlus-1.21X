@@ -11,5 +11,11 @@
   "item.infectionplus.ethans_everyday_easter_egg_easter_egg": "*Ethan's Everyday",
 
   "item.infectionplus.ghostly_fish": "Ghostly Fish",
-  "item.infectionplus.zombie_cure": "Zombie Cure"
+  "item.infectionplus.zombie_cure": "Zombie Cure",
+
+  "effect.infectionplus.infection_1": "Infection I",
+  "effect.infectionplus.infection_2": "Infection II",
+  "effect.infectionplus.infection_3": "Infection III",
+  "effect.infectionplus.infection_4": "Infection IV",
+  "effect.infectionplus.infection_5": "Infection V"
 }
