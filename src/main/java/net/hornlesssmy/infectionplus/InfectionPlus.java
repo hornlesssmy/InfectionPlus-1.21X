@@ -7,9 +7,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.hornlesssmy.infectionplus.effect.ModEffects;
-import net.hornlesssmy.infectionplus.event.InfectionEffectHandler;
-import net.hornlesssmy.infectionplus.event.PlayerJoinHandler;
-import net.hornlesssmy.infectionplus.event.PlayerTickHandler;
+import net.hornlesssmy.infectionplus.event.*;
 import net.hornlesssmy.infectionplus.item.ModItems;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.Registries;
@@ -30,6 +28,8 @@ public class InfectionPlus implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		WorldSpawnHandler.register();
+
 		ModEffects.registerEffects();
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
@@ -108,6 +108,8 @@ public class InfectionPlus implements ModInitializer {
 
 		PlayerJoinHandler.register();
 		ServerTickEvents.START_SERVER_TICK.register(server -> server.getPlayerManager().getPlayerList().forEach(PlayerTickHandler::onPlayerTick));
+
+		PlayerDeathHandler.register();
 
 	}
 }

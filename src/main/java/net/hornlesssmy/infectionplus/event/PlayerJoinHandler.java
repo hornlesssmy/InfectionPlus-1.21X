@@ -2,8 +2,11 @@ package net.hornlesssmy.infectionplus.event;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.hornlesssmy.infectionplus.InfectionPlus;
+import net.hornlesssmy.infectionplus.effect.ModEffects;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -116,6 +119,20 @@ public class PlayerJoinHandler {
                 true,
                 false
         ));
+    }
+
+    public static void cureInfection(ServerPlayerEntity player) {
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_1);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_2);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_3);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_4);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_5);
+
+        // Switch to the human team if they were a zombie
+        Team team = player.getScoreboardTeam();
+        if (team != null && team.getName().equals(InfectionPlus.ZOMBIE_TEAM_NAME)) {
+            switchToHumanTeam(player);
+        }
     }
 
     public static void switchToTeam(ServerPlayerEntity player, String teamName) {
