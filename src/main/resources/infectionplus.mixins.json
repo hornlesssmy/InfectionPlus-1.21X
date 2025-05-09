@@ -3,7 +3,10 @@
     "ChatHudMixin",
     "ClientPlayNetworkHandlerMixin",
     "DebugMenuDisablerMixin",
-    "KeyboardMixin"
+    "KeyboardMixin",
+    "PlayerEntityMixin",
+    "PlayerListHudMixin",
+    "PlayerSleepMixin"
   ],
   "compatibilityLevel": "JAVA_21",
   "injectors": {

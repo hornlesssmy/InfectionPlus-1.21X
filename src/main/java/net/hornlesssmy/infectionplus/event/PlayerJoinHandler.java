@@ -2,18 +2,34 @@ package net.hornlesssmy.infectionplus.event;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.hornlesssmy.infectionplus.InfectionPlus;
+import net.hornlesssmy.infectionplus.effect.ModEffects;
+import net.hornlesssmy.infectionplus.points.PointsManager;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import java.util.Random; // Changed from Minecraft's Random to standard Java Random
 
 public class PlayerJoinHandler {
     private static final Random RANDOM = new Random();
-    private static final double ZOMBIE_CHANCE = 0.333; // 33% chance
+    private static final double ZOMBIE_CHANCE = 0.15; // 15% chance
+
+    public static void onPlayerJoin(ServerPlayerEntity player) {
+        // Check if human for 2 weeks
+        long playTicks = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
+        if (playTicks >= 24000 * 14 &&
+                player.getScoreboardTeam() != null &&
+                player.getScoreboardTeam().getName().equals(InfectionPlus.HUMAN_TEAM_NAME))
+        {
+            PointsManager.addPoints(player, 4);
+        }
+    }
 
     public static void register() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
@@ -116,6 +132,20 @@ public class PlayerJoinHandler {
                 true,
                 false
         ));
+    }
+
+    public static void cureInfection(ServerPlayerEntity player) {
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_1);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_2);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_3);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_4);
+        player.removeStatusEffect((RegistryEntry<StatusEffect>) ModEffects.INFECTION_5);
+
+        // Switch to the human team if they were a zombie
+        Team team = player.getScoreboardTeam();
+        if (team != null && team.getName().equals(InfectionPlus.ZOMBIE_TEAM_NAME)) {
+            switchToHumanTeam(player);
+        }
     }
 
     public static void switchToTeam(ServerPlayerEntity player, String teamName) {

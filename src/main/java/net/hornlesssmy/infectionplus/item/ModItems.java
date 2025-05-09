@@ -3,6 +3,7 @@ package net.hornlesssmy.infectionplus.item;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hornlesssmy.infectionplus.InfectionPlus;
 import net.hornlesssmy.infectionplus.item.custom.GhostlyFishItem;
+import net.hornlesssmy.infectionplus.item.custom.ZombieCureItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
@@ -21,7 +22,7 @@ public class ModItems {
     public static final Item JESSES_REVENGE_EASTER_EGG = registerItem("jesses_revenge_easter_egg", new Item(new Item.Settings()));
     public static final Item ETHANS_EVERYDAY_EASTER_EGG = registerItem("ethans_everyday_easter_egg", new Item(new Item.Settings()));
     public static final Item GHOSTLY_FISH = registerItem("ghostly_fish", new GhostlyFishItem(new Item.Settings().food(ModFoodComponents.GHOSTLY_FISH)));
-    public static final Item ZOMBIE_CURE = registerItem("zombie_cure", new Item(new Item.Settings().food(ModFoodComponents.ZOMBIE_CURE)));
+    public static final Item ZOMBIE_CURE = registerItem("zombie_cure", new ZombieCureItem(new Item.Settings().food(ModFoodComponents.ZOMBIE_CURE)));
 
 
     private static Item registerItem(String name, Item item) {

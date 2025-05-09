@@ -1,14 +1,29 @@
 package net.hornlesssmy.infectionplus.event;
 
 import net.hornlesssmy.infectionplus.InfectionPlus;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import java.util.Objects;
+
 public class PlayerTickHandler {
     public static void onPlayerTick(ServerPlayerEntity player) {
+        if (player.isTouchingWater() && Objects.requireNonNull(player.getScoreboard().getScoreHolderTeam(player.getNameForScoreboard())).getName().equals(InfectionPlus.ZOMBIE_TANK_TEAM_NAME)) {
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 14, true, false));
+        }
+    }
+
+    private static void addOrRefresh(ServerPlayerEntity player, StatusEffect effect, int duration, int amplifier) {
+        StatusEffectInstance current = player.getStatusEffect((RegistryEntry<StatusEffect>) effect);
+        if (current == null || current.getAmplifier() != amplifier || current.getDuration() < duration / 2) {
+            player.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) effect, duration, amplifier, false, false));
+        }
+
         Team team = player.getScoreboardTeam();
         ZombieFireHandler.onPlayerTick(player);
 
