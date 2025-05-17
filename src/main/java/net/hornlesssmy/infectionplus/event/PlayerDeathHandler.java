@@ -3,7 +3,6 @@ package net.hornlesssmy.infectionplus.event;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.hornlesssmy.infectionplus.InfectionPlus;
 import net.hornlesssmy.infectionplus.effect.InfectionEffect;
-import net.hornlesssmy.infectionplus.points.PointsManager;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.scoreboard.ScoreHolder;
@@ -34,29 +33,25 @@ public class PlayerDeathHandler {
         int deaths = Objects.requireNonNull(scoreboard.getScore(ScoreHolder.fromName(deathKey), scoreboard.getNullableObjective("deaths"))).getScore();
         deaths++;
         scoreboard.getOrCreateScore(ScoreHolder.fromName(deathKey), scoreboard.getNullableObjective("deaths")).setScore(deaths);
-
-        if (deaths % 20 == 0) {
-            PointsManager.addPoints(player, -1);
-        }
-        if (source.getSource() instanceof ServerPlayerEntity) {
-            if (deaths % 2 == 0) {
-                PointsManager.updateWorth(player);
-            }
-        } else {
-            if (deaths % 10 == 0) {
-                PointsManager.updateWorth(player);
-            }
-        }
     }
 
     public static void register() {
-        ServerPlayerEvents.ALLOW_DEATH.register((player, source, amount) -> {
-            if (player.getWorld().isClient) return true;
+        ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
+            if (alive) {
+                return; // Skip if this is a dimension change rather than death
+            }
 
-            handleInfectionPersistence(player);
-            handleInfectionSpread(player, source);
+            if (oldPlayer.getWorld().isClient) {
+                return;
+            }
 
-            return !hasInfection(player);
+            DamageSource source = oldPlayer.getRecentDamageSource();
+            handleInfectionPersistence(oldPlayer, newPlayer);
+            handleInfectionSpread(oldPlayer, source);
+            onPlayerDeath(oldPlayer, source);
+
+            // If the player had infection, you might want to transfer it or block respawn
+            hasInfection(oldPlayer);// Add custom logic here if needed
         });
     }
 
@@ -68,20 +63,18 @@ public class PlayerDeathHandler {
                 player.hasStatusEffect(InfectionEffect.INFECTION_5);
     }
 
-    private static void handleInfectionPersistence(ServerPlayerEntity player) {
-        if (hasInfection(player)) {
-            ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-                StatusEffectInstance currentInfection = getCurrentInfection(oldPlayer);
-                if (currentInfection != null) {
-                    newPlayer.addStatusEffect(new StatusEffectInstance(
-                            currentInfection.getEffectType(),
-                            currentInfection.getDuration(),
-                            currentInfection.getAmplifier(),
-                            false,
-                            false
-                    ));
-                }
-            });
+    private static void handleInfectionPersistence(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer) {
+        if (hasInfection(oldPlayer)) {
+            StatusEffectInstance currentInfection = getCurrentInfection(oldPlayer);
+            if (currentInfection != null) {
+                newPlayer.addStatusEffect(new StatusEffectInstance(
+                        currentInfection.getEffectType(),
+                        currentInfection.getDuration(),
+                        currentInfection.getAmplifier(),
+                        false,
+                        false
+                ));
+            }
         }
     }
 
@@ -95,7 +88,7 @@ public class PlayerDeathHandler {
     }
 
     private static void handleInfectionSpread(ServerPlayerEntity victim, DamageSource source) {
-        if (source.getSource() instanceof ServerPlayerEntity killer) {
+        if (source != null && source.getSource() instanceof ServerPlayerEntity killer) {
             Team killerTeam = killer.getScoreboardTeam();
             Team victimTeam = victim.getScoreboardTeam();
 

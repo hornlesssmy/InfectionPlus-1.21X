@@ -21,5 +21,6 @@ public class ModFoodComponents {
             .statusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 6000, 2, false, false), 1.0f)
             .statusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 120, 5, false, false), 1.0f)
             .statusEffect(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 999999999, 999999999, false, false), 1.0f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 60, 3, false, false), 1.0f)
             .build();
 }

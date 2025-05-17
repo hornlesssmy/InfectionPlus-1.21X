@@ -1,19 +1,15 @@
 package net.hornlesssmy.infectionplus;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.hornlesssmy.infectionplus.command.PointsCommand;
-import net.hornlesssmy.infectionplus.command.ZombieTankCommand;
 import net.hornlesssmy.infectionplus.effect.ModEffects;
 import net.hornlesssmy.infectionplus.event.*;
 import net.hornlesssmy.infectionplus.item.ModItems;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.Registries;
-import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -25,9 +21,6 @@ public class InfectionPlus implements ModInitializer {
 		public static final String HUMAN_TEAM_NAME = "infectionplus_human";
 		public static final String ZOMBIE_TEAM_NAME = "infectionplus_zombie";
 		public static final String ZOMBIE_TANK_TEAM_NAME = "infectionplus_zombietank";
-		public static final String POINTS_OBJ = "infectionPoints";
-		public static final String WORTH_OBJ = "playerWorth";
-		public static final String BASE_WORTH_OBJ = "baseWorth";
 		public static boolean hasZombie = false;
 	public static Identifier id(String path) {
 		return Identifier.of(MOD_ID, path);
@@ -36,10 +29,6 @@ public class InfectionPlus implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			ZombieTankCommand.register(dispatcher);
-			PointsCommand.register(dispatcher);
-		});
 
 		WorldSpawnHandler.register();
 		ModEffects.registerEffects();
@@ -84,7 +73,6 @@ public class InfectionPlus implements ModInitializer {
 		ModItems.registerModItems();
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-			Scoreboard scoreboard = server.getScoreboard();
 			InfectionPlus.hasZombie = false;
 
 

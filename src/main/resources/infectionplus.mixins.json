@@ -1,20 +1,14 @@
 {
   "client": [
-    "ChatHudMixin",
-    "ClientPlayNetworkHandlerMixin",
-    "DebugMenuDisablerMixin",
-    "KeyboardMixin",
     "PlayerEntityMixin",
-    "PlayerListHudMixin",
-    "PlayerSleepMixin"
+    "PlayerListHudMixin"
   ],
   "compatibilityLevel": "JAVA_21",
   "injectors": {
     "defaultRequire": 1
   },
   "mixins": [
-    "server.PlayerManagerMixin",
-    "server.ServerPlayNetworkHandlerMixin"
+
   ],
   "package": "net.hornlesssmy.infectionplus.mixin",
   "required": true

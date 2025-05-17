@@ -19,7 +19,7 @@ public class GhostlyFishItem extends Item {
         if (!world.isClient && user instanceof PlayerEntity player) {
             ItemStack ghostlyFish = new ItemStack(this);
             if (!player.getInventory().insertStack(ghostlyFish)) {
-                player.dropItem(ghostlyFish, false);
+                player.dropItem(ghostlyFish, true);
             }
         }
         return result;

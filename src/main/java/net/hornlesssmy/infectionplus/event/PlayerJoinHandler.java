@@ -3,14 +3,13 @@ package net.hornlesssmy.infectionplus.event;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.hornlesssmy.infectionplus.InfectionPlus;
 import net.hornlesssmy.infectionplus.effect.InfectionEffect;
-import net.hornlesssmy.infectionplus.points.PointsManager;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -21,19 +20,11 @@ import java.util.Random;
 public class PlayerJoinHandler {
     private static final Random RANDOM = new Random();
     private static final double ZOMBIE_CHANCE = 0.15;
-    private static final int MAX_SPAWN_ATTEMPTS = 50;
-    private static final int SPAWN_SEARCH_RADIUS = 500;
+    private static final int MAX_SPAWN_ATTEMPTS = 100;
+    private static final int SPAWN_SEARCH_RADIUS = 5000;
     private static final int MIN_SKY_VISIBILITY = 10;
 
     public static void onPlayerJoin(ServerPlayerEntity player) {
-        long playTicks = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
-        if (playTicks >= 24000 * 14 &&
-                player.getScoreboardTeam() != null &&
-                player.getScoreboardTeam().getName().equals(InfectionPlus.HUMAN_TEAM_NAME))
-        {
-            PointsManager.addPoints(player, 4);
-        }
-
         // Set new spawn location for the world
         setNewPlayerSpawn(player);
     }
@@ -77,9 +68,12 @@ public class PlayerJoinHandler {
             }
         }
 
-        // Check for liquids
-        return !world.getBlockState(pos).isLiquid() &&
-                !world.getBlockState(pos.up()).isLiquid() &&
+        // Check for liquids using the new method
+        FluidState currentFluid = world.getFluidState(pos);
+        FluidState aboveFluid = world.getFluidState(pos.up());
+
+        return !currentFluid.isEmpty() &&
+                !aboveFluid.isEmpty() &&
                 world.isSkyVisible(pos);
     }
 
@@ -225,6 +219,7 @@ public class PlayerJoinHandler {
         switchToTeam(player, InfectionPlus.HUMAN_TEAM_NAME);
     }
 
+    @SuppressWarnings("unused")
     public static void switchToZombieTeam(ServerPlayerEntity player) {
         switchToTeam(player, InfectionPlus.ZOMBIE_TEAM_NAME);
     }
