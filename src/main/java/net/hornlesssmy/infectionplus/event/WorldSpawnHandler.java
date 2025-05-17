@@ -7,6 +7,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 
 public class WorldSpawnHandler {
+    private static final int MAX_ATTEMPTS = 50;
+    private static final int SEARCH_RADIUS = 500;
+    private static final int MIN_SKY_VISIBILITY = 10;
+
     public static void register() {
         ServerWorldEvents.LOAD.register((server, world) -> {
             if (world.getRegistryKey() == ServerWorld.OVERWORLD) {
@@ -16,24 +20,45 @@ public class WorldSpawnHandler {
     }
 
     private static void setNewWorldSpawn(ServerWorld world) {
-        // Get a random position within 500 blocks of origin (0,0)
-        int x = world.getRandom().nextInt(1000) - 500;
-        int z = world.getRandom().nextInt(1000) - 500;
+        BlockPos newSpawn = findValidSpawnPosition(world);
+        if (newSpawn != null) {
+            world.setSpawnPos(newSpawn, 0.0f);
+            InfectionPlus.LOGGER.info("Set new world spawn at: {}", newSpawn);
+        } else {
+            InfectionPlus.LOGGER.warn("Failed to find valid spawn location, using default");
+        }
+    }
 
-        // Get the topmost solid block at this position
-        int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING, x, z);
+    private static BlockPos findValidSpawnPosition(ServerWorld world) {
+        for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+            int x = world.getRandom().nextInt(SEARCH_RADIUS * 2) - SEARCH_RADIUS;
+            int z = world.getRandom().nextInt(SEARCH_RADIUS * 2) - SEARCH_RADIUS;
+            int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING, x, z);
+            BlockPos candidatePos = new BlockPos(x, y, z);
 
-        // Ensure we're not in water or other liquids
-        while (y > world.getBottomY() &&
-                !world.getBlockState(new BlockPos(x, y - 1, z)).isSolid()) {
-            y--;
+            if (isValidSpawnPosition(world, candidatePos)) {
+                return candidatePos;
+            }
+        }
+        return null;
+    }
+
+    private static boolean isValidSpawnPosition(ServerWorld world, BlockPos pos) {
+        // Check if the block below is solid
+        if (!world.getBlockState(pos.down()).isSolidBlock(world, pos.down())) {
+            return false;
         }
 
-        // Set the new spawn point
-        BlockPos newSpawn = new BlockPos(x, y, z);
-        world.setSpawnPos(newSpawn, 0.0f);
+        // Check for open sky above
+        for (int i = 1; i <= MIN_SKY_VISIBILITY; i++) {
+            if (world.getBlockState(pos.up(i)).isOpaque()) {
+                return false;
+            }
+        }
 
-        // Optional: Log the new spawn location
-        InfectionPlus.LOGGER.info("Set new world spawn at: {}", newSpawn);
+        // Check for liquids using modern methods
+        return !world.getBlockState(pos).isLiquid() &&
+                !world.getBlockState(pos.up()).isLiquid() &&
+                world.isSkyVisible(pos);
     }
 }
