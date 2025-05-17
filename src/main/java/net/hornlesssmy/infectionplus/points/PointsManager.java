@@ -65,4 +65,8 @@ public class PointsManager {
         getOrCreateObjective(scoreboard, InfectionPlus.BASE_WORTH_OBJ);
         InfectionPlus.LOGGER.info("[Scoreboard] Initialized objectives");
     }
+
+    public static int getPoints(ServerPlayerEntity player) {
+        return getScore(player.getScoreboard(), player, InfectionPlus.POINTS_OBJ);
+    }
 }

@@ -6,6 +6,7 @@ import net.hornlesssmy.infectionplus.effect.InfectionEffect;
 import net.hornlesssmy.infectionplus.points.PointsManager;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -77,9 +78,12 @@ public class PlayerJoinHandler {
             }
         }
 
-        // Check for liquids
-        return !world.getBlockState(pos).isLiquid() &&
-                !world.getBlockState(pos.up()).isLiquid() &&
+        // Check for liquids using the new method
+        FluidState currentFluid = world.getFluidState(pos);
+        FluidState aboveFluid = world.getFluidState(pos.up());
+
+        return !currentFluid.isEmpty() &&
+                !aboveFluid.isEmpty() &&
                 world.isSkyVisible(pos);
     }
 
@@ -225,6 +229,7 @@ public class PlayerJoinHandler {
         switchToTeam(player, InfectionPlus.HUMAN_TEAM_NAME);
     }
 
+    @SuppressWarnings("unused")
     public static void switchToZombieTeam(ServerPlayerEntity player) {
         switchToTeam(player, InfectionPlus.ZOMBIE_TEAM_NAME);
     }
