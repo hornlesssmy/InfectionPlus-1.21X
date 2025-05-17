@@ -14,7 +14,7 @@ public abstract class PlayerEntityMixin {
     private void handleSleep(CallbackInfoReturnable<ActionResult> cir) {
         PlayerEntity player = (PlayerEntity)(Object)this;
 
-        // First verify the bed is valid and get position safely
+        // First, verify the bed is valid and get its position safely
         BlockPos sleepingPos = player.getSleepingPosition().orElse(null);
         if (sleepingPos == null) {
             return; // Let vanilla handle invalid cases
