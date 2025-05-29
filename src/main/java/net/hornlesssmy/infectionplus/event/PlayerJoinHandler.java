@@ -79,6 +79,7 @@ public class PlayerJoinHandler {
 
     public static void register() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            onPlayerJoin(handler.getPlayer());
             ServerPlayerEntity player = handler.getPlayer();
             Scoreboard scoreboard = server.getScoreboard();
 

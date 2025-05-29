@@ -59,13 +59,4 @@ public class PlayerTickHandler {
         // Handle fire effects for zombies
         ZombieFireHandler.onPlayerTick(player);
     }
-
-    private static void addOrRefresh(ServerPlayerEntity player, StatusEffectInstance effect) {
-        StatusEffectInstance current = player.getStatusEffect(effect.getEffectType());
-        if (current == null ||
-                current.getAmplifier() != effect.getAmplifier() ||
-                current.getDuration() < effect.getDuration() / 2) {
-            player.addStatusEffect(effect);
-        }
-    }
 }

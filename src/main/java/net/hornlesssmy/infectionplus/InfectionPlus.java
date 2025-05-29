@@ -11,7 +11,6 @@ import net.hornlesssmy.infectionplus.item.ModItems;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,9 +21,6 @@ public class InfectionPlus implements ModInitializer {
 		public static final String ZOMBIE_TEAM_NAME = "infectionplus_zombie";
 		public static final String ZOMBIE_TANK_TEAM_NAME = "infectionplus_zombietank";
 		public static boolean hasZombie = false;
-	public static Identifier id(String path) {
-		return Identifier.of(MOD_ID, path);
-	}
 
 
 	@Override
@@ -72,11 +68,7 @@ public class InfectionPlus implements ModInitializer {
 
 		ModItems.registerModItems();
 
-		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
-			InfectionPlus.hasZombie = false;
-
-
-		});
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> InfectionPlus.hasZombie = false);
 
 		PlayerJoinHandler.register();
 		ServerTickEvents.START_SERVER_TICK.register(server -> server.getPlayerManager().getPlayerList().forEach(PlayerTickHandler::onPlayerTick));

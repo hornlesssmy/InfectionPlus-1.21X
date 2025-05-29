@@ -16,6 +16,7 @@ import java.util.Objects;
 
 public class PlayerDeathHandler {
     public static void onPlayerDeath(ServerPlayerEntity player, DamageSource source) {
+        InfectionPlus.LOGGER.info("Player {} died from {}", player.getName().getString(), source.getName());
         Scoreboard scoreboard = player.getScoreboard();
 
         if (scoreboard.getNullableObjective("deaths") == null) {
@@ -48,6 +49,7 @@ public class PlayerDeathHandler {
             DamageSource source = oldPlayer.getRecentDamageSource();
             handleInfectionPersistence(oldPlayer, newPlayer);
             handleInfectionSpread(oldPlayer, source);
+            assert source != null;
             onPlayerDeath(oldPlayer, source);
 
             // If the player had infection, you might want to transfer it or block respawn
