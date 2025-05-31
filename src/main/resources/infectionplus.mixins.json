@@ -1,7 +1,6 @@
 {
   "client": [
-    "PlayerEntityMixin",
-    "PlayerListHudMixin"
+
   ],
   "compatibilityLevel": "JAVA_21",
   "injectors": {
