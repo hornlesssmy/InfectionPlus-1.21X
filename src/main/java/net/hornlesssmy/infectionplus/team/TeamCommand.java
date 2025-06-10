@@ -50,6 +50,7 @@ public class TeamCommand {
                                         })
                                 )
                         )
-                ));
+                )
+        ); // Fixed: Added missing closing parenthesis
     }
 }

@@ -50,23 +50,25 @@ public class TeamHandler {
 
     public static void applyZombieEffects(ServerPlayerEntity player) {
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.HUNGER, -1, 1, true, false));
+                StatusEffects.HUNGER, -1, 1, true, true));
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.NIGHT_VISION, -1, 0, true, false));
+                StatusEffects.NIGHT_VISION, -1, 0, true, true));
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.RESISTANCE, -1, 0, true, false));
+                StatusEffects.RESISTANCE, -1, 0, true, true));
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.SLOWNESS, -1, 0, true, false));
+                StatusEffects.SLOWNESS, -1, 0, true, true));
     }
 
     public static void applyZombieTankEffects(ServerPlayerEntity player) {
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.HUNGER, -1, 1, true, false));
+                StatusEffects.HUNGER, -1, 2, true, true));
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.NIGHT_VISION, -1, 0, true, false));
+                StatusEffects.NIGHT_VISION, -1, 0, true, true));
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.RESISTANCE, -1, 1, true, false));
+                StatusEffects.RESISTANCE, -1, 1, true, true));
         player.addStatusEffect(new StatusEffectInstance(
-                StatusEffects.SLOWNESS, -1, 0, true, false));
+                StatusEffects.SLOWNESS, -1, 1, true, true));
+        player.addStatusEffect(new StatusEffectInstance(
+                StatusEffects.HEALTH_BOOST, -1, 10, true, true));
     }
 }

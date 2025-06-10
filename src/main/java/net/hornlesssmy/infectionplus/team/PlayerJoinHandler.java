@@ -1,6 +1,7 @@
 package net.hornlesssmy.infectionplus.team;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.hornlesssmy.infectionplus.infection.InfectionManager;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -15,7 +16,7 @@ public class PlayerJoinHandler {
 
     public static void register() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            ServerPlayerEntity player = handler.player; // Changed from getPlayer() to player
+            ServerPlayerEntity player = handler.player;
             // Use the server parameter directly
             Scoreboard scoreboard = server.getScoreboard();
 
@@ -24,6 +25,9 @@ public class PlayerJoinHandler {
 
             Team humanTeam = scoreboard.getTeam(TeamManager.HUMAN_TEAM_NAME);
             Team zombieTeam = scoreboard.getTeam(TeamManager.ZOMBIE_TEAM_NAME);
+
+            // Load infection data for returning player
+            InfectionManager.loadPlayerData(player);
 
             // Check if player is new (no team assigned)
             Team currentTeam = scoreboard.getScoreHolderTeam(player.getNameForScoreboard());
