@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:oak_button"
+    },
+    "b": {
+      "item": "minecraft:totem_of_undying"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "result": {
+    "count": 1,
+    "id": "infectionplus:ethans_everyday_easter_egg"
+  }
+}

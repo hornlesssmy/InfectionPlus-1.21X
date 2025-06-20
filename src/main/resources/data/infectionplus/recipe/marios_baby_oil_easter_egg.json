@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:glass_bottle"
+    },
+    "b": {
+      "item": "minecraft:milk_bucket"
+    },
+    "c": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "cbc",
+    "bab",
+    "cbc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "infectionplus:marios_baby_oil_easter_egg"
+  }
+}

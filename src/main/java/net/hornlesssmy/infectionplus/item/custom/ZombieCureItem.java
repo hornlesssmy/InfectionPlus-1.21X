@@ -1,6 +1,6 @@
 package net.hornlesssmy.infectionplus.item.custom;
 
-import net.hornlesssmy.infectionplus.infection.InfectionManager;
+import net.hornlesssmy.infectionplus.effect.ModEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,23 +17,21 @@ public class ZombieCureItem extends Item {
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (!world.isClient && user instanceof ServerPlayerEntity player) {
-            // Check if player is infected
-            if (InfectionManager.isPlayerInfected(player)) {
-                // Cure the infection
-                InfectionManager.curePlayer(player);
-
-                // Apply the regeneration effect from the food component
-                return super.finishUsing(stack, world, user);
+            // Remove infection effect if present
+            if (player.hasStatusEffect(ModEffects.INFECTION)) {
+                // Special removal that bypasses isRemovable()
+                player.removeStatusEffect(ModEffects.INFECTION);
+                player.sendMessage(
+                        Text.literal("You have been cured of the infection!")
+                                .formatted(Formatting.GREEN),
+                        false
+                );
             } else {
-                // Player is not infected
                 player.sendMessage(
                         Text.literal("You are not infected, but the cure still provides healing.")
                                 .formatted(Formatting.YELLOW),
                         false
                 );
-
-                // Still apply the regeneration effect
-                return super.finishUsing(stack, world, user);
             }
         }
         return super.finishUsing(stack, world, user);

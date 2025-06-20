@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:sugar_cane"
+    },
+    "b": {
+      "item": "minecraft:totem_of_undying"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "result": {
+    "count": 1,
+    "id": "infectionplus:jesses_revenge_easter_egg"
+  }
+}

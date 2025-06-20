@@ -17,6 +17,9 @@
 	"entrypoints": {
 		"main": [
 			"net.hornlesssmy.infectionplus.InfectionPlus"
+		],
+		"fabric-datagen": [
+			"net.hornlesssmy.infectionplus.InfectionPlusDataGenerator"
 		]
 	},
 	"depends": {

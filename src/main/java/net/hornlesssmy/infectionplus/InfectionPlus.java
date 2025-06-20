@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.hornlesssmy.infectionplus.effect.ModEffects;
 import net.hornlesssmy.infectionplus.item.ModItems;
 import net.hornlesssmy.infectionplus.team.*;
 import org.slf4j.Logger;
@@ -15,7 +16,10 @@ public class InfectionPlus implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModEffects.registerEffects();
+
 		ModItems.registerModItems();
+
 		LOGGER.info("InfectionPlus items registered!");
 
 		ServerLifecycleEvents.SERVER_STARTED.register(TeamManager::initializeTeams);
@@ -24,6 +28,7 @@ public class InfectionPlus implements ModInitializer {
 
 		PlayerJoinHandler.register();
 		PlayerDeathHandler.register();
+
 
 		ServerTickEvents.START_SERVER_TICK.register(server -> {
 			server.getPlayerManager().getPlayerList().forEach(PlayerTickHandler::onPlayerTick);
