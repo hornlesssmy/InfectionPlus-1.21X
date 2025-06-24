@@ -23,4 +23,13 @@ public class ModFoodComponents {
             .statusEffect(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 999999999, 999999999, false, false), 1.0f)
             .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 3, false, false), 1.0f)
             .build();
+
+    public static final FoodComponent GLOWIER_BERRY = new FoodComponent.Builder()
+            .nutrition(10).saturationModifier(5.0f).alwaysEdible()
+            .statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0, false, false), 1.0f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 1200, 1, false, false), 1.0f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.LUCK, 100, 3, false, false), 1.0f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 6000, 0, false, false), 1.0f)
+            .build();
+
 }

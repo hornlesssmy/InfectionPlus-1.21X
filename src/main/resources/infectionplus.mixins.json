@@ -1,13 +1,11 @@
 {
-  "client": [
-  ],
+  "required": true,
+  "package": "net.hornlesssmy.infectionplus.mixin",
   "compatibilityLevel": "JAVA_21",
-  "injectors": {
-    "defaultRequire": 1
-  },
   "mixins": [
     "PlayerDeathMixin"
   ],
-  "package": "net.hornlesssmy.infectionplus.mixin",
-  "required": true
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

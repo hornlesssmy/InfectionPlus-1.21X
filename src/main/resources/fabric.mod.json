@@ -13,6 +13,9 @@
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/infectionplus/icon.png",
+	"mixins": [
+		"infectionplus.mixins.json"
+	],
 	"environment": "*",
 	"entrypoints": {
 		"main": [
