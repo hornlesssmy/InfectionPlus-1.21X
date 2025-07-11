@@ -18,31 +18,28 @@ public class GlowierberryItem extends Item {
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (!world.isClient && user instanceof PlayerEntity player) {
             // Apply the food effects first
-            ItemStack result = super.finishUsing(stack, world, user);
-            // Find the slot that had the glow berry.
-            int slotIndex = -1;
-            for (int i = 0; i < player.getInventory().size(); i++) {
-                ItemStack slotStack = player.getInventory().getStack(i);
-                if (slotStack.isEmpty() || (slotStack.getItem() == this && slotStack.getCount() == 1)) {
-                    slotIndex = i;
-                    break;
+            super.finishUsing(stack, world, user);
+            
+            // Schedule the item to be replaced on the next tick
+            world.getServer().execute(() -> {
+                ItemStack newGlowierberry = new ItemStack(this, 1);
+                
+                // Find the first empty slot or the slot that had this item
+                for (int i = 0; i < player.getInventory().size(); i++) {
+                    ItemStack slotStack = player.getInventory().getStack(i);
+                    if (slotStack.isEmpty()) {
+                        player.getInventory().setStack(i, newGlowierberry);
+                        break;
+                    }
                 }
-            }
-            // Replace it with a new berry immediately
-            ItemStack newGlowierberry = new ItemStack(this, 1);
-            if (slotIndex != -1) {
-                player.getInventory().setStack(slotIndex, newGlowierberry);
-            } else {
-                // If we can't find the slot, try to insert or drop
-                if (!player.getInventory().insertStack(newGlowierberry)) {
-                    player.dropItem(newGlowierberry, false);
+                
+                // Force inventory sync
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.currentScreenHandler.sendContentUpdates();
                 }
-            }
-            // Sync the inventory to the client immediately
-            if (player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.currentScreenHandler.sendContentUpdates();
-            }
-            return result;
+            });
+            
+            return stack;
         }
         return super.finishUsing(stack, world, user);
     }

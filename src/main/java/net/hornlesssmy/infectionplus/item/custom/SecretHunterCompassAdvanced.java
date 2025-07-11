@@ -38,8 +38,11 @@ public class SecretHunterCompassAdvanced extends CompassItem {
                 GlobalPos globalPos = GlobalPos.create(serverWorld.getRegistryKey(), targetPos);
                 
                 // Use the new component system to set the lodestone tracker
-                LodestoneTrackerComponent tracker = new LodestoneTrackerComponent(Optional.of(globalPos), false);
+                LodestoneTrackerComponent tracker = new LodestoneTrackerComponent(Optional.of(globalPos), true);
                 stack.set(DataComponentTypes.LODESTONE_TRACKER, tracker);
+                
+                // Force stack update to trigger compass needle update
+                user.setStackInHand(hand, stack);
                 
                 // Show distance and direction info
                 double distance = Math.sqrt(serverPlayer.squaredDistanceTo(nearestPlayer));

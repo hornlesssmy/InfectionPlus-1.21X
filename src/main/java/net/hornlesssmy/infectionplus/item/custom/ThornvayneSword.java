@@ -71,9 +71,9 @@ public class ThornvayneSword extends SwordItem {
             
             // Apply Euphoria effect every 10 consecutive hits
             if (currentHits % 10 == 0) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 4)); // Regen 5 for 5 seconds
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 100, 4)); // Saturation 5 for 5 seconds
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 2)); // Strength 3 for 5 seconds
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 4, false, false)); // Regen 5 for 5 seconds, invisible
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 100, 4, false, false)); // Saturation 5 for 5 seconds, invisible
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 2, false, false)); // Strength 3 for 5 seconds, invisible
             }
         }
         
@@ -81,10 +81,10 @@ public class ThornvayneSword extends SwordItem {
         
         // Calculate and apply damage based on hit count
         int hitCount = hitCountMap.get(playerId);
-        float totalDamage = hitCount * hitCount + 8; // t = x² + 8
+        float totalDamage = hitCount * hitCount + 4; // t = x² + 4
         
         // Apply the calculated damage
-        target.damage(player.getDamageSources().playerAttack(player), totalDamage - 8); // Subtract base damage to avoid double damage
+        target.damage(player.getDamageSources().playerAttack(player), totalDamage - 4); // Subtract base damage to avoid double damage
     }
     
     @Override

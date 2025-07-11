@@ -38,19 +38,23 @@ public class ModItems {
         InfectionPlus.LOGGER.info("Registering Mod Items for " + InfectionPlus.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(fabricItemGroupEntries -> {
+            fabricItemGroupEntries.add(GHOSTLY_FISH);
+            fabricItemGroupEntries.add(ZOMBIE_CURE);
+            fabricItemGroupEntries.add(GLOWIER_BERRY);
             fabricItemGroupEntries.add(LETHAL_STEROIDS);
             fabricItemGroupEntries.add(SHADOW_CROSSER_EASTER_EGG);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(fabricItemGroupEntries -> {
+            fabricItemGroupEntries.add(THORNVAYNE);
             fabricItemGroupEntries.add(MENY_BOMB_EASTER_EGG);
             fabricItemGroupEntries.add(CROWN_OF_UNNATURAL_LIFE_EASTER_EGG);
-            // Thornvayne is intentionally not added to keep it secret
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(fabricItemGroupEntries -> fabricItemGroupEntries.add(MASONS_WOLFPACK_EASTER_EGG));
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(fabricItemGroupEntries -> {
+            fabricItemGroupEntries.add(SECRET_HUNTER_COMPASS);
             fabricItemGroupEntries.add(HUMAN_HUNTER_EASTER_EGG);
             fabricItemGroupEntries.add(DANIELS_DARKNESS_EASTER_EGG);
             fabricItemGroupEntries.add(MARIOS_BABY_OIL_EASTER_EGG);

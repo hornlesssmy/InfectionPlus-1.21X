@@ -7,6 +7,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,6 +19,12 @@ public class SoundMixin {
     
     @Inject(method = "playSound", at = @At("HEAD"), cancellable = true)
     private void suppressSoundsForInfinitySquared(PlayerEntity source, double x, double y, double z, RegistryEntry<SoundEvent> sound, SoundCategory category, float volume, float pitch, long seed, CallbackInfo ci) {
+        suppressSoundLogic(source, x, y, z, ci);
+    }
+    
+    // Note: Additional playSound overloads may exist but need to be verified against actual method signatures
+    
+    private void suppressSoundLogic(PlayerEntity source, double x, double y, double z, CallbackInfo ci) {
         ServerWorld world = (ServerWorld) (Object) this;
         
         // Check if there's a player with Infinity² deactivated within 100 blocks
