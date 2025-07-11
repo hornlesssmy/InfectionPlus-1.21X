@@ -27,7 +27,7 @@
       "item": "minecraft:chain"
     },
     "i": {
-      "item": "rotten_flesh"
+      "item": "minecraft:rotten_flesh"
     }
   },
   "pattern": [
@@ -37,6 +37,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "infectionplus:zombie_cure"
+    "item": "infectionplus:zombie_cure"
   }
 }

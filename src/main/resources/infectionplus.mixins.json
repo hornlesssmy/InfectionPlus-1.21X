@@ -3,7 +3,7 @@
   "package": "net.hornlesssmy.infectionplus.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "PlayerDeathMixin"
+    "SoundMixin"
   ],
   "injectors": {
     "defaultRequire": 1

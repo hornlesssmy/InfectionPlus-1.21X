@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hornlesssmy.infectionplus.InfectionPlus;
 import net.hornlesssmy.infectionplus.item.custom.GhostlyFishItem;
 import net.hornlesssmy.infectionplus.item.custom.GlowierberryItem;
+import net.hornlesssmy.infectionplus.item.custom.SecretHunterCompassAdvanced;
+import net.hornlesssmy.infectionplus.item.custom.ThornvayneSword;
 import net.hornlesssmy.infectionplus.item.custom.ZombieCureItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -24,8 +26,9 @@ public class ModItems {
     public static final Item ETHANS_EVERYDAY_EASTER_EGG = registerItem("ethans_everyday_easter_egg", new Item(new Item.Settings()));
     public static final Item GHOSTLY_FISH = registerItem("ghostly_fish", new GhostlyFishItem(new Item.Settings().food(ModFoodComponents.GHOSTLY_FISH)));
     public static final Item ZOMBIE_CURE = registerItem("zombie_cure", new ZombieCureItem(new Item.Settings().food(ModFoodComponents.ZOMBIE_CURE)));
-    public static final Item GLOWIER_BERRY = registerItem("glowier berry", new GlowierberryItem(new Item.Settings().food(ModFoodComponents.GLOWIER_BERRY)));
-
+    public static final Item GLOWIER_BERRY = registerItem("glowier_berry", new GlowierberryItem(new Item.Settings().food(ModFoodComponents.GLOWIER_BERRY)));
+    public static final Item SECRET_HUNTER_COMPASS = registerItem("secret_hunter_compass", new SecretHunterCompassAdvanced(new Item.Settings().maxCount(1)));
+    public static final Item THORNVAYNE = registerItem("thornvayne", new ThornvayneSword(new Item.Settings().maxCount(1).fireproof()));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(InfectionPlus.MOD_ID, name), item);
@@ -42,6 +45,7 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(fabricItemGroupEntries -> {
             fabricItemGroupEntries.add(MENY_BOMB_EASTER_EGG);
             fabricItemGroupEntries.add(CROWN_OF_UNNATURAL_LIFE_EASTER_EGG);
+            // Thornvayne is intentionally not added to keep it secret
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(fabricItemGroupEntries -> fabricItemGroupEntries.add(MASONS_WOLFPACK_EASTER_EGG));

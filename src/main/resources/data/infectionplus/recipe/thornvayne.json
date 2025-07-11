@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "WWW",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:wooden_sword"
+    }
+  },
+  "result": {
+    "item": "infectionplus:thornvayne",
+    "count": 1,
+    "components": {
+      "minecraft:enchantments": {
+        "levels": {
+          "minecraft:fire_aspect": 2,
+          "minecraft:looting": 5,
+          "minecraft:unbreaking": 3,
+          "minecraft:sharpness": 6,
+          "minecraft:smite": 10,
+          "minecraft:bane_of_arthropods": 10,
+          "minecraft:mending": 1,
+          "minecraft:sweeping_edge": 5
+        }
+      },
+      "minecraft:item_name": "§4Thornvayne"
+    }
+  }
+}

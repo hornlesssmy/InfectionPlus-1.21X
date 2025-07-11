@@ -21,6 +21,9 @@
 		"main": [
 			"net.hornlesssmy.infectionplus.InfectionPlus"
 		],
+		"client": [
+			"net.hornlesssmy.infectionplus.InfectionPlusClient"
+		],
 		"fabric-datagen": [
 			"net.hornlesssmy.infectionplus.InfectionPlusDataGenerator"
 		]

@@ -12,6 +12,9 @@
 
   "item.infectionplus.ghostly_fish": "Ghostly Fish",
   "item.infectionplus.zombie_cure": "Zombie Cure",
-  "item.infectionplus.glowier_berry": "Glow Berries"
+  "item.infectionplus.glowier_berry": "Glow Berries",
+  "item.infectionplus.secret_hunter_compass": "SecretHunter",
+  "container.secret_hunter": "SecretHunter",
+  "item.infectionplus.thornvayne": "§4Thornvayne"
 
 }
